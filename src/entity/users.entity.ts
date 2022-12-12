@@ -2,9 +2,11 @@ import { Entity, ObjectIdColumn, Column, Unique, CreateDateColumn, UpdateDateCol
 import { IsNotEmpty } from 'class-validator';
 import { User } from '../interfaces/users.interface';
 import { RefreshTokenEntity } from './token.entity';
+import { RequestEntity } from './request.entity';
+import { NotificationEntity } from './notification.entity';
 
 @Entity()
-@Unique(['email'])
+@Unique(['email', 'id', 'phone'])
 export class UserEntity implements User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,6 +14,30 @@ export class UserEntity implements User {
   @Column()
   @IsNotEmpty()
   email: string;
+
+  @Column()
+  @IsNotEmpty()
+  name: string;
+
+  @Column()
+  @IsNotEmpty()
+  surname: string;
+
+  @Column()
+  @IsNotEmpty()
+  position: string;
+
+  @Column()
+  @IsNotEmpty()
+  phone: string;
+
+  @Column()
+  @IsNotEmpty()
+  role: string;
+
+  @Column()
+  @IsNotEmpty()
+  isTemporary: boolean;
 
   @Column()
   @IsNotEmpty()
@@ -28,5 +54,13 @@ export class UserEntity implements User {
   @OneToOne(()=> RefreshTokenEntity)
   @JoinColumn()
   refreshToken: RefreshTokenEntity
+
+  @OneToOne(()=> RequestEntity)
+  @JoinColumn()
+  doctorRequest: RequestEntity
+
+  @OneToOne( () => NotificationEntity )
+  @JoinColumn()
+  notification: NotificationEntity;
 
 }

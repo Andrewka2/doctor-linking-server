@@ -1,10 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from '../dtos/users.dto';
+import { RequestWithUser } from '../interfaces/auth.interface';
 import { User } from '../interfaces/users.interface';
 import userService from '../services/users.service';
 
 class UsersController {
   public userService = new userService();
+
+  public changePassword = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const {id} = req.user
+      const {prevPass, newPass} = req.body;
+      await this.userService.changePassword(id, prevPass, newPass);
+      res.status(200).json({ message: 'changed' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
   public getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

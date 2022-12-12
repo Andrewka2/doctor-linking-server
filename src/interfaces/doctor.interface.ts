@@ -1,27 +1,13 @@
 import { Entity, ObjectIdColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, ObjectID } from 'typeorm';
 import { RefreshTokenEntity } from '../entity/token.entity';
 
-export interface User {
+export interface Doctor {
   id: number;
-  name: string
   email: string;
+  name: string;
   surname: string;
   position: string;
-  phone: string;
-  role: string;
-  isTemporary: boolean;
+  phone: number;
   password: string;
   refreshToken: RefreshTokenEntity
-}
-
-export interface UserRegistration{
-  email: string,
-  name: string,
-  id: number,
-  surname: string, 
-  position: string,
-  phone: string,
-  role: string,
-  isTemporary: boolean,
-  password?: string
 }

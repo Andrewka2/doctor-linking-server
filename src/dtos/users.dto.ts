@@ -5,5 +5,26 @@ export class CreateUserDto {
   public email: string;
 
   @IsString()
+  public name?: string;
+
+  @IsString()
+  public surname?: string;
+
+  @IsString()
+  public position?: string;
+
+  @IsString()
+  public phone?: string;
+
+  @IsString()
   public password: string;
 }
+
+export class LoginUserDto {
+  @IsEmail()
+  public email: string;
+
+  @IsString()
+  public password: string;
+}
+

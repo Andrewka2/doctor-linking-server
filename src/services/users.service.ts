@@ -6,12 +6,31 @@ import { User } from '../interfaces/users.interface';
 import { UserEntity } from '../entity/users.entity';
 import { isEmpty } from '../utils/util';
 
+//const users: User[] = await userRepository.find();
+
 class UserService {
+  
   public users = UserEntity;
 
-  public async findAllUser(): Promise<User[]> {
+  public async changePassword(id: string, prevPass: string, newPass: string ){
     const userRepository = getRepository(this.users);
-    const users: User[] = await userRepository.find();
+    const findUser: User = await userRepository.findOne({ where: { id: Number(id) } });
+    if (!findUser) throw new HttpException(409, "You're not user");
+    const isPasswordMatching: boolean = await bcrypt.compare(prevPass, findUser.password);
+    if (!isPasswordMatching) throw new HttpException(409, "You're not user");
+    const hashedPassword = await bcrypt.hash(newPass, 10);
+    if(findUser.isTemporary){
+      await userRepository.update(Number(id), { isTemporary: false, password: hashedPassword });
+    }else{
+      await userRepository.update(Number(id), { password: hashedPassword });
+    }
+  }
+
+  public async findAllUser(): Promise<User[]> {
+    const users = await getRepository(UserEntity)
+    .createQueryBuilder("user")
+    .select(["user.id", "user.email", "user.name", "user.surname", "user.position", "user.phone", "user.role", "user.isTemporary", ])
+    .getMany()
     return users;
   }
 

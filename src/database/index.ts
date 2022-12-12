@@ -15,7 +15,3 @@ export const AppDataSource: DataSourceOptions = {
   migrations: [env === 'production' ? 'build/migration/*{.ts,.js}' : 'src/migration/*{.ts,.js}'],
   subscribers: [env === 'production' ? 'build/subscriber/*{.ts,.js}' : 'src/subscriber/*{.ts,.js}'],
 };
-
-
-
-
