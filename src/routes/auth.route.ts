@@ -16,7 +16,7 @@ class AuthRoute implements Route {
   private initializeRoutes() {
     this.router.post('/signup', validationMiddleware(CreateUserDto, 'body'), this.authController.signUp);
     this.router.post('/login', validationMiddleware(LoginUserDto, 'body'), this.authController.logIn);
-    this.router.post('/logout', authMiddleware, this.authController.logOut);
+    this.router.get('/logout', authMiddleware, this.authController.logOut);
     this.router.post('/doctor-signup', authMiddleware, this.authController.doctorSignUp);
     this.router.get('/refresh', this.authController.refresh)
     this.router.post('/capcha-verify', this.authController.capcha)

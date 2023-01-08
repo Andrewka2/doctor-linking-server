@@ -20,8 +20,6 @@ class AuthService {
   public notifications = NotificationEntity
 
   public async notification(key: string, id:number){
-    console.log(key)
-    console.log(id)
     const userRepository = getRepository(this.users);
     const notificationRepository = getRepository(this.notifications)
     const user = await userRepository.findOne({ relations: { notification: true }, where: { id: id } })

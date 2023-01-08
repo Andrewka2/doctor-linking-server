@@ -9,7 +9,6 @@ import AuthService from '../services/auth.service';
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
     const authService = new AuthService();
-    const cookies = req.cookies;
     const authorizationHeader = req.headers.authorization;
     if(!authorizationHeader){
       next(new HttpException(404, 'Authentication token missing'));
