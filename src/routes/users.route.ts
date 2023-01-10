@@ -23,8 +23,7 @@ class UsersRoute implements Route {
     // this.router.delete(`${this.path}/:id(\\d+)`, this.usersController.deleteUser);
     this.router.delete(`${this.path}/delete-user/:id(\\d+)`, this.usersController.deleteUser);
     this.router.put(`${this.path}/update`, this.usersController.updateUser);
-
   }
 }
 
-export default UsersRoute;
+export default UsersRoute
