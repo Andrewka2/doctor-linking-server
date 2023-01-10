@@ -61,10 +61,8 @@ class UserService {
     const userRepository = getRepository(this.users);
     const findUser: User = await userRepository.findOne({ where: { id: userId } });
     if (!findUser) throw new HttpException(409, "You're not user");
-
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    await userRepository.update(userId, { ...userData, password: hashedPassword });
-
+//    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    await userRepository.update(userId, { ...userData });
     const updateUser: User = await userRepository.findOne({ where: { id: userId } });
     return updateUser;
   }

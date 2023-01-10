@@ -8,6 +8,7 @@ class RequestController {
   public setRequest = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const requestData = req.body;
+      console.log(requestData)
       const result = await this.requestService.setRequest(requestData);
       res.status(201).json({ message: 'request sended' });
     } catch (error) {
